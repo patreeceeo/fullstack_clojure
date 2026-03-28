@@ -1,0 +1,22 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.4"}
+        ring/ring-core {:mvn/version "1.15.3"}
+        ring/ring-jetty-adapter {:mvn/version "1.15.3"}
+        metosin/reitit-ring {:mvn/version "0.9.2"}}
+ :aliases
+ {:dev {:extra-paths ["dev" "test"]
+        :extra-deps {org.clojure/tools.namespace {:mvn/version "1.5.1"}}
+        :jvm-opts ["-Dclojure.tools.namespace.repl.load=false"]}
+  :run {:main-opts ["-m" "app.backend.main"]}
+  :frontend {:override-deps {org.clojure/clojure {:mvn/version "1.12.0"}
+                             org.clojure/clojurescript {:mvn/version "1.12.116"}}
+             :extra-deps {thheller/shadow-cljs {:mvn/version "3.3.0"}}
+             :main-opts ["-m" "shadow.cljs.devtools.cli"]}
+  :test {:extra-paths ["test"]
+         :main-opts ["-m" "app.test-runner"]}
+  :lint {:replace-deps {clj-kondo/clj-kondo {:mvn/version "2026.01.19"}}
+         :main-opts ["-m" "clj-kondo.main" "--lint" "src" "dev" "test"]}
+  :fmt {:replace-deps {dev.weavejester/cljfmt {:mvn/version "0.15.6"}}
+        :main-opts ["-m" "cljfmt.main" "fix" "src" "dev" "test"]}
+  :fmt-check {:replace-deps {dev.weavejester/cljfmt {:mvn/version "0.15.6"}}
+              :main-opts ["-m" "cljfmt.main" "check" "src" "dev" "test"]}}}

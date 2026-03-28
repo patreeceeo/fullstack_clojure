@@ -1,0 +1,4 @@
+{:lint-as {}
+ :linters {:consistent-alias {:level :warning}
+           :unused-namespace {:level :warning}
+           :unused-referred-var {:level :warning}}}

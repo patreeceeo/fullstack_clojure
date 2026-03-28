@@ -1,0 +1,7 @@
+/.cpcache
+/.clj-kondo/.cache
+/.shadow-cljs
+/classes
+/target
+*.jar
+/resources
