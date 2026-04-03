@@ -59,7 +59,9 @@
                   Group = "root";
                   WorkingDirectory = pkg;
                   ExecStart = "${pkg}/bin/fullstack_clojure";
-                  PORT = "${cfg.port}";
+                  environment = {
+                    PORT = "${cfg.port}";
+                  };
                 };
               };
 
