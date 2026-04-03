@@ -60,7 +60,7 @@
                   WorkingDirectory = pkg;
                   ExecStart = "${pkg}/bin/fullstack_clojure";
                   environment = {
-                    PORT = "${cfg.port}";
+                    PORT = builtins.toString cfg.port;
                   };
                 };
               };
