@@ -52,16 +52,15 @@
 
                 after = [];
 
-                environment = {};
+                environment = {
+                  PORT = builtins.toString cfg.port;
+                };
 
                 serviceConfig = {
                   User = "root";
                   Group = "root";
                   WorkingDirectory = pkg;
                   ExecStart = "${pkg}/bin/fullstack_clojure";
-                  environment = {
-                    PORT = builtins.toString cfg.port;
-                  };
                 };
               };
 
