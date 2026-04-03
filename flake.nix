@@ -20,7 +20,7 @@
 
           let
             pkg = self.packages.${system}.default;
-            cfg = config.services.observe-ui;
+            cfg = config.services.fullstack_clojure;
           in {
 
             # --------------------------------------------------
