@@ -59,18 +59,6 @@
                   Group = "root";
                   WorkingDirectory = pkg;
                   ExecStart = "${pkg}/bin/fullstack_clojure";
-                  # ExecStart = let
-                  #   sh = pkgs.writeShellApplication {
-                  #     name = "web-server";
-                  #     runtimeInputs = with pkgs; [ static-web-server ];
-                  #     text = ''
-                  #       static-web-server \
-                  #         --root=. \
-                  #         --directory-listing=true \
-                  #         --port="${builtins.toString cfg.port}"
-                  #     '';
-                  #   };
-                  # in "${sh}/bin/web-server";
                 };
               };
 
