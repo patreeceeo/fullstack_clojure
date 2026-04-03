@@ -16,10 +16,10 @@
       ];
     in {
       nixosModules = {
-        fullstack_clojure = { self, config, lib, pkgs, ... }:
+        fullstack_clojure = { fullstack_clojure, config, lib, pkgs, ... }:
 
           let
-            pkg = self.packages.${system}.default;
+            pkg = fullstack_clojure.packages.${system}.default;
             cfg = config.services.fullstack_clojure;
           in {
 
