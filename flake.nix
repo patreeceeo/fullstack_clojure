@@ -15,6 +15,69 @@
         pkgs.clojure
       ];
     in {
+      nixosModules = {
+        fullstack_clojure = { self, config, lib, pkgs, ... }:
+
+          let
+            pkg = self.packages.${system}.default;
+            cfg = config.services.observe-ui;
+          in {
+
+            # --------------------------------------------------
+            # Interface.
+            options = {
+              services.fullstack_clojure = {
+                enable = lib.mkEnableOption (lib.mdDoc "Fullstack Clojure Starter");
+
+                port = lib.mkOption {
+                  type = lib.types.port;
+                  description = lib.mdDoc ''
+                    The port to listen on.
+                  '';
+                };
+              };
+            };
+
+            # --------------------------------------------------
+            # Implementation
+
+            config = lib.mkIf cfg.enable  {
+
+              systemd.services.fullstack_clojure = {
+                enable = true;
+
+                wantedBy = [
+                  "multi-user.target"  # start on server boot.
+                ];
+
+                after = [];
+
+                environment = {};
+
+                serviceConfig = {
+                  User = "root";
+                  Group = "root";
+                  WorkingDirectory = pkg;
+                  ExecStart = "${pkg}/bin/fullstack_clojure";
+                  # ExecStart = let
+                  #   sh = pkgs.writeShellApplication {
+                  #     name = "web-server";
+                  #     runtimeInputs = with pkgs; [ static-web-server ];
+                  #     text = ''
+                  #       static-web-server \
+                  #         --root=. \
+                  #         --directory-listing=true \
+                  #         --port="${builtins.toString cfg.port}"
+                  #     '';
+                  #   };
+                  # in "${sh}/bin/web-server";
+                };
+              };
+
+            };
+
+          };
+      };
       packages.${system} = rec {
         default = clj-nix.lib.mkCljApp {
           pkgs = nixpkgs.legacyPackages.${system};
